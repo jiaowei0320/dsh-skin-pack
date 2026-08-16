@@ -254,7 +254,7 @@ console.log('— client: registrations —')
   }
 
   client.apply(ctx)
-  check('four skins registered', themes.length === 6)
+  check('three skins registered', themes.length === 5)
   check('persisted selection restored', preference === 'cyberpunk')
   check('settings row registered', slotFactories.some(f => f.name === 'settings.general.item'))
   check('sidebar footer action registered', slotFactories.some(f => f.name === 'sidebar.footer.action'))
