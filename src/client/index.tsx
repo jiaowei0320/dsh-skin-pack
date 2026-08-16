@@ -118,30 +118,97 @@ const SKINS: readonly SkinDefinition[] = [
     },
   },
   {
-    // 天蓝清爽 — color-matched from the reference screenshot
-    // (20260816-192251.jpeg): sky-blue chat area, warm-white sidebar,
-    // deep-blue accents.
+    // 天空蓝 — 深色侧边栏/底部 + 天蓝聊天区 + 白色内容卡片。
+    // Color-matched from the reference screenshot (20260816-192251.jpeg):
+    // deep navy chrome, sky-blue #85d5fa chat area, white surfaces.
+    // Note: DSH paints the chat column with --dsw-alias-bg-base and the
+    // sidebar with --dsw-specific-sidebar-fill, so sky-blue chat + dark
+    // sidebar is achievable; the reference's gradient/sky gradient cannot be
+    // expressed as theme tokens (DSH has no gradient background token).
     id: 'sky-blue',
-    label: '天蓝清爽',
-    colorScheme: 'light',
+    label: '天空蓝',
+    colorScheme: 'dark',
     tokens: {
-      '--dsw-alias-bg-base': '#e6f4fd',
-      '--dsw-alias-bg-layer-1': '#eff9ff',
-      '--dsw-alias-bg-layer-2': '#d9effc',
-      '--dsw-alias-bg-overlay': '#c8e8fb',
-      '--dsw-alias-border-l1': '#b4dcf5',
-      '--dsw-alias-border-l2': '#86c8ee',
-      '--dsw-alias-brand-primary': '#0d8de0',
-      '--dsw-alias-label-primary': '#123a55',
-      '--dsw-alias-label-secondary': '#4a7a99',
-      '--dsw-alias-label-tertiary': '#7fa3bd',
-      '--dsw-alias-state-error-primary': '#e63946',
-      '--dsw-alias-state-success-primary': '#00a86b',
-      '--dsw-alias-state-warn-primary': '#f5a623',
-      '--dsw-alias-interactive-bg-hover': 'rgba(13, 141, 224, 0.10)',
-      '--dsw-alias-button-primary-fill': '#0d8de0',
-      '--dsw-alias-button-primary-hover': '#0a7ac8',
-      '--dsw-specific-sidebar-fill': '#fef8ea',
+      // 聊天区 = 天蓝（bg-base 同时驱动浮层，用略深的天蓝保持层次）
+      '--dsw-alias-bg-base': '#85d5fa',
+      '--dsw-alias-bg-layer-1': '#9adefb',
+      '--dsw-alias-bg-layer-2': '#70caf6',
+      '--dsw-alias-bg-overlay': '#a8e2fc',
+      '--dsw-alias-bg-skeleton': 'rgba(255, 255, 255, 0.4)',
+      // 深色侧边栏 / 导航 / 底部框架
+      '--dsw-specific-sidebar-fill': '#0c1e33',
+      '--dsw-specific-sidebar-nav-item-active': 'rgba(133, 213, 250, 0.16)',
+      '--dsw-specific-sidebar-nav-item-hover': 'rgba(133, 213, 250, 0.10)',
+      '--dsw-specific-sidebar-nav-item-active-accent': 'rgba(133, 213, 250, 0.24)',
+      '--dsw-alias-bg-module-platform': '#0e2238',
+      // 边框：天蓝底上用白/浅蓝
+      '--dsw-alias-border-l1': 'rgba(255, 255, 255, 0.45)',
+      '--dsw-alias-border-l2': 'rgba(255, 255, 255, 0.55)',
+      '--dsw-alias-border-l3': 'rgba(255, 255, 255, 0.65)',
+      '--dsw-alias-border-l4': 'rgba(255, 255, 255, 0.75)',
+      '--dsw-alias-border-l2-darkmode-thin': 'rgba(255, 255, 255, 0.55)',
+      // 品牌：深蓝（导航/主按钮，参考图 #156bd0）
+      '--dsw-alias-brand-primary': '#156bd0',
+      '--dsw-alias-brand-text': '#eaf7ff',
+      '--dsw-alias-brand-primary-invert': '#eaf7ff',
+      '--dsw-alias-button-primary-fill': '#156bd0',
+      '--dsw-alias-button-primary-hover': '#1d7ae6',
+      '--dsw-alias-button-primary-dimmed': 'rgba(21, 107, 208, 0.30)',
+      '--dsw-alias-button-info-fill': '#156bd0',
+      '--dsw-alias-button-info-hover': '#1d7ae6',
+      // 文字：天蓝底上用深蓝黑
+      '--dsw-alias-label-primary': '#0c2a45',
+      '--dsw-alias-label-primary-foreground': '#ffffff',
+      '--dsw-alias-label-primary-inverted': '#ffffff',
+      '--dsw-alias-label-primary-dimmed': '#123a55',
+      '--dsw-alias-label-primary-bluish': '#0d4a78',
+      '--dsw-alias-label-secondary': '#1d5a85',
+      '--dsw-alias-label-tertiary': '#3a6f9c',
+      '--dsw-alias-label-caption': '#2f668f',
+      '--dsw-alias-label-dimmed': '#4a7fa8',
+      // 交互反馈（天蓝底）
+      '--dsw-alias-interactive-bg-hover': 'rgba(255, 255, 255, 0.35)',
+      '--dsw-alias-interactive-bg-active': 'rgba(255, 255, 255, 0.45)',
+      '--dsw-alias-interactive-bg-hover-accent': 'rgba(255, 255, 255, 0.5)',
+      '--dsw-alias-interactive-bg-hover-solid': 'rgba(255, 255, 255, 0.4)',
+      // 状态色（天空蓝里保持可辨识）
+      '--dsw-alias-state-error-primary': '#d64545',
+      '--dsw-alias-state-success-primary': '#0f9d6e',
+      '--dsw-alias-state-warn-primary': '#d98a1f',
+      '--dsw-alias-state-warn-secondary': 'rgba(217, 138, 31, 0.18)',
+      '--dsw-alias-state-warn-tertiary': 'rgba(217, 138, 31, 0.10)',
+      '--dsw-alias-state-error-secondary': 'rgba(214, 69, 69, 0.18)',
+      '--dsw-alias-state-success-secondary': 'rgba(15, 157, 110, 0.18)',
+      '--dsw-alias-state-success-tertiary': 'rgba(15, 157, 110, 0.10)',
+      '--dsw-alias-state-business-primary': '#156bd0',
+      '--dsw-alias-state-business-tertiary': 'rgba(21, 107, 208, 0.12)',
+      // 白色内容面（消息气泡 / 输入框 / 菜单）
+      '--dsw-specific-bubble': '#ffffff',
+      '--dsw-specific-bubble-highlight': '#f0f8ff',
+      '--dsw-specific-input-major': '#ffffff',
+      '--dsw-specific-menu': '#ffffff',
+      '--dsw-specific-selector': 'rgba(255, 255, 255, 0.6)',
+      '--dsw-specific-tip': 'rgba(255, 255, 255, 0.7)',
+      // 工具条按钮（透明底 → 天蓝悬浮）
+      '--dsw-alias-button-tool-bar-fill': 'rgba(255, 255, 255, 0.5)',
+      '--dsw-alias-button-tool-bar-hover': 'rgba(255, 255, 255, 0.65)',
+      '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(255, 255, 255, 0.35)',
+      '--dsw-alias-button-floating-fill': '#ffffff',
+      '--dsw-alias-button-floating-hover': '#eef8ff',
+      '--dsw-alias-button-elevated-fill': '#ffffff',
+      '--dsw-alias-button-contrast-fill': '#0d4a78',
+      // Markdown / 代码块（白底内容区内）
+      '--dsw-alias-markdown-code-block': '#f4f8fc',
+      '--dsw-alias-markdown-code-block-banner': '#e8f1f9',
+      '--dsw-alias-markdown-inline-code': 'rgba(21, 107, 208, 0.10)',
+      '--dsw-alias-markdown-tag': 'rgba(21, 107, 208, 0.10)',
+      '--dsw-alias-markdown-citation': 'rgba(21, 107, 208, 0.08)',
+      '--dsw-alias-markdown-placeholder': 'rgba(21, 107, 208, 0.06)',
+      // 滚动条
+      '--dsw-alias-scrollbar-bg-l1': 'rgba(255, 255, 255, 0.4)',
+      '--dsw-alias-scrollbar-bg-l2': 'rgba(255, 255, 255, 0.5)',
+      '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 255, 255, 0.6)',
+      '--dsw-alias-scrollbar-hover-l2': 'rgba(255, 255, 255, 0.7)',
     },
   },
 ]
