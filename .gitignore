@@ -1,0 +1,9 @@
+# dependencies (link-deps symlinks, never committed)
+node_modules/
+
+# smoke test scratch
+.smoke/
+
+# release archives ride GitHub Releases, not the repo
+*.tgz
+*.zip

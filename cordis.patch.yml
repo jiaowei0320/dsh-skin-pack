@@ -1,0 +1,8 @@
+# dsh-skin-pack: adds one plugin row to the running composition.
+#
+# The client half is served automatically: client-modules scans loader rows
+# for packages that declare `dsh.client` in their package.json, composes the
+# browser boot graph, and serves lib/client.js at /plugins/dsh-skin-pack/.
+- insert:
+    - id: dsh-skin-pack
+      name: dsh-skin-pack
